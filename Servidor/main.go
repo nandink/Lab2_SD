@@ -1,6 +1,7 @@
 package main
 
 import (
+	"google.golang.org/grpc"
 	"log"
 )
 
@@ -22,7 +23,7 @@ func main() {
 
 	s.RegisterClienteSvServer(s, &Server)
 
-	if err := grpcServer.Serve(lis); err != nil {
+	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
 }
