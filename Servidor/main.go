@@ -4,10 +4,6 @@ import (
 	"fmt"
 	"net"
 	"context"
-<<<<<<< HEAD
-=======
-	"log"
->>>>>>> 753bccc4a913771db1b8b0164cea6c5977691319
 	"google.golang.org/grpc"
 	"log"
 	pb "Lab2_SD/Pb"	
