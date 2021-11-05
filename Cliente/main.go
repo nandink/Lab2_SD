@@ -2,10 +2,9 @@ package main
 
 import (
 	"log"
-
-	"golang.org/x/net/context"
+	"context"
 	"google.golang.org/grpc"
-	pb "lab2/Pb"
+	pb "Lab2_SD/Pb"
 )
 
 func main() {
@@ -17,7 +16,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	c := chat.NewClienteSvClient(conn)
+	c := pb.NewClienteSvClient(conn)
 
 	response, err := c.DimeHola(context.Background(), &pb.Mensaje{Body: "Hello From Client!"})
 	if err != nil {
