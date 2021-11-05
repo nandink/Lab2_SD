@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 	"context"
-	"io"
+	"google.golang.org/grpc"
 	"log"
 	"google.golang.org/grpc"
 	pb "Lab2_SD/Pb"	
@@ -27,7 +27,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	s.RegisterClienteSvServer(s, &Server)
+	s.RegisterClienteSvServer(s, &Server{})
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
