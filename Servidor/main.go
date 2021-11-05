@@ -1,13 +1,20 @@
 package main
 
 import (
+	"fmt"
+	"net"
+	"context"
+	"io"
 	"log"
+	"google.golang.org/grpc"
+	pb "Lab2_SD/Pb"	
 )
 
 type Server struct {
+	pb.UnimplementedClienteSvServer
 }
 
-func (s *Server) DimeHola(ctx context.Context, in *Mensaje) (*Mensaje, error) {
+func (s *Server) DimeHola(ctx context.Context, in *pb.Mensaje) (*pb.Mensaje, error) {
 	log.Printf("Receive message body from client: %s", in.Body)
 	return &Mensaje{Body: "Hello From the Server!"}, nil
 }
@@ -22,7 +29,8 @@ func main() {
 
 	s.RegisterClienteSvServer(s, &Server)
 
-	if err := grpcServer.Serve(lis); err != nil {
+	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
 }
+	

@@ -97,5 +97,5 @@ var ClienteSv_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "Pb/pb.proto",
+	Metadata: "pb.proto",
 }
