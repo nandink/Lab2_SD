@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package pb;
 
-option go_package = "lab2/Pb";
+option go_package = "Lab2_SD/Pb";
 
 
 service ClienteSv {
