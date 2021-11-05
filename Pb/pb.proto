@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "lab2/Pb";
+
+
+service ClienteSv {
+    rpc DimeHola(Mensaje) returns (Mensaje) {}
+}
+
+message Mensaje { 
+    string body = 1;
+}
