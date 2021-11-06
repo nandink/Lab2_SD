@@ -34,7 +34,7 @@ func (s *Server) MandarJugadores(ctx context.Context, in *pb.Mensajito2) (*pb.Me
 
 func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, error) {
 	log.Printf("Jugadas Recibidas")
-	var n_azar int32 = rand.Intn(4) + 6
+	var n_azar int32 = rand.Int31n(4) + 6
 	log.Printf("El Lider escogió: %d",n_azar)
 	var cont int32 = 0
 	for {
