@@ -111,7 +111,7 @@ func main() {
 		
 		log.Printf("\nFin de la ronda %d", ronda)
 		ronda = ronda + 1
-
+		cont = 0
 	}
 
 }
