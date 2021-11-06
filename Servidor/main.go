@@ -42,6 +42,7 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 	for {
 		if in.Ronda < 5{
 			if cont < 16{
+				log.Printf("ESTOY ENTRANDO AAAAAAAA")
 				if in.Jugador[cont] >= n_azar{
 					 in.Muertos[cont] = 1
 					 log.Printf("Jugador %d ha muerto", cont)
