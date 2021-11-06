@@ -1,7 +1,7 @@
 package main
 
 import (
-	//pb "Lab2_SD/Pb"
+	pb "Lab2_SD/Pb"
 	"context"
 	"google.golang.org/grpc"
 	"log"
@@ -50,13 +50,13 @@ func main() {
 	//random rand.Intn(3)
 	log.Printf("\n----Etapa 1: Luz Verde, Luz Roja ----")
 	log.Printf("\nEscoja un número del 1 al 10: ")
-	var opcion int
+	var opcion int32
 	for {
 		if cont == 0{
 			fmt.Scan(&opcion)
 			jugadas[cont] = opcion
 		} else if cont < 16{
-			jugadas[cont] = random.Intn(10) +1
+			jugadas[cont] = rand.Intn(10) +1
 		} else{
 			log.Printf("\nTodos los jugadores escogieron su número.")
 			break
@@ -64,7 +64,7 @@ func main() {
 		cont = cont + 1
 	}
 	//recibir jugada lider
-	response, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugadores: jugada, Ronda: 1, Muertos: muertos})
+	response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugadores: jugada, Ronda: 1, Muertos: muertos})
 	if err != nil {
 		log.Fatalf("Error when calling SayHello: %s", err)
 	}
