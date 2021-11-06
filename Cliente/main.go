@@ -56,6 +56,62 @@ func main() {
 	log.Printf("\nEscoja un número del 1 al 10: ")
 	var opcion int32
 
+	for{
+		for {
+			if ronda < 5 {
+				if cont == 0 {
+					if jugadas2[0] >= 21 {
+						jugadas[cont] = 0
+					} else{
+						fmt.Scan(&opcion)
+						jugadas[cont] = opcion
+					}
+				} else if cont < 16 {
+					if jugadas2[cont] >= 21{
+						jugadas[cont] = 0
+					} else {
+						jugadas[cont] = rand.Int31n(10) +1
+					}
+				} else {
+					log.Printf("\nTodos los jugadores escogieron su número.")
+					break
+				}
+
+			} else{
+				var cont2 int32 = 0
+				for range jugadas{
+					jugadas[cont2] = jugadas2[cont2]
+				}
+			}
+			cont = cont + 1
+		}
+		response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: ronda, Muertos: muertos})
+		cont = 0
+		for range jugadas{
+			jugadas2[cont] = jugadas2[cont] + jugadas[cont]
+		}
+
+		log.Printf("Respuesta del Lider: %d", response3.Ronda)
+		log.Printf("\nEl lider escogió su número. Los jugadores muertos son: ")
+		
+		cont = 0
+		for {
+			if cont < 16{
+				if response3.Muertos[cont] == 1{
+					log.Printf(" %d ", cont)
+				}
+			}else{
+				break
+			}
+			cont = cont + 1
+		}
+		
+		log.Printf("\nFin de la ronda %d", ronda)
+		ronda = ronda + 1
+
+	}
+
+
 	for {
 		log.Printf("%d",ronda)
 		log.Printf("Contador: %d",cont)
