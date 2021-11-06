@@ -55,74 +55,71 @@ func main() {
 	log.Printf("\n----Etapa 1: Luz Verde, Luz Roja ----")
 	var opcion int32
 
-	for{ //for de rondas 1-5
-		if ronda < 5{
-			for { //for de jugadas 0-15
-					if cont == 0 {
-						if jugadas2[0] >= 21 || muertos[cont] == 1 {
-							jugadas[cont] = 0
-						} else{
-							log.Printf("\nEscoja un número del 1 al 10: ")
-							fmt.Scan(&opcion)
-							jugadas[cont] = opcion
-						}
-					} else if cont < 16 {
-						if jugadas2[cont] >= 21 || muertos[cont] == 1{
-							jugadas[cont] = 0
-						} else {
-							jugadas[cont] = rand.Int31n(10) +1
-						}
-					} else {
-						log.Printf("\nTodos los jugadores escogieron su número.")
-						break
-					}
-				cont = cont + 1
+	//FOR NUEVO AQUI ESTA SI QUE SI VAMOS DIOSITO
+	for i:=0; i<=4; i++{
+		if i < 4 {
+			if muertos[0] == 0{ //si jugador por pantalla sigue vivo, sigue jugando las rondas
+				if jugadas2[0] >= 21 {
+					jugadas[0] = 0
+				}else{
+					log.Printf("\nEscoja un número del 1 al 10: ")
+					fmt.Scan(&opcion)
+					jugadas[cont] = opcion	
+				}
+			}else{ //esta MUERTO :c
+				jugadas[0] = 0
 			}
-		} else{
-			var cont2 int32 = 0
-			for range jugadas{
-				jugadas[cont2] = jugadas2[cont2]
+			for cont:=1;cont<16;cont++{
+				//si tiene mas de 21, sigue vivo, pero jugada = 0
+				//si tiene menos de 21, sigue jugando y tira jugada
+				//si esta muerto se le asigna jugada = 0
+				if jugadas2[cont] < 21 {
+					if muertos[cont] == 1{ //tay dead
+						jugadas[cont] = 0
+					}else{
+						jugadas[cont] = rand.Int31n(10) +1
+					}					
+				} else {
+					jugadas[cont] = 0
+				}
 			}
-		}
-		response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: ronda, Muertos: muertos})
-		if err != nil {
-			log.Fatalf("Error %s", err)
-		}
 
-		cont = 0
-		for range jugadas{
-			jugadas2[cont] = jugadas2[cont] + jugadas[cont]
-		}
+			response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: ronda, Muertos: muertos})
+			if err != nil {
+				log.Fatalf("Error %s", err)
+			}
 
-		cont = 0
-		for range muertos{
-			muertos[cont] = response3[cont]
-			cont = cont + 1
-		}
-
-		log.Printf("Numero de ronda actual: %d", response3.Ronda)
-		log.Printf("\nEl lider escogió su número. Los jugadores muertos son: ")
-		
-		cont = 0
-		for {
-			if cont < 16{
+			log.Printf("Numero de ronda actual: %d", response3.Ronda)
+			log.Printf("\nEl lider escogió su número. Los jugadores muertos son: ")
+			
+			
+			for cont:=0;cont<16;cont++{
 				if response3.Muertos[cont] == 1{
 					log.Printf(" %d ", cont)
 				}
-			} else {
-				break
+			
 			}
-			cont = cont + 1
-		}
+
+			for cont:=0;cont<16;cont++{
+				jugadas2[cont] = jugadas2[cont] + jugadas[cont]
+			}
+
+			for cont:=0;cont<16;cont++{
+				muertos[cont] = response3.Muertos[cont]
+			}
+			log.Printf("\nFin de la ronda %d", ronda)
+			ronda = ronda + 1
 		
-		log.Printf("\nFin de la ronda %d", ronda)
-		ronda = ronda + 1
-		cont = 0
-		if ronda == 6 {
-			break
+		} else{ 
+			
+			response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas2, Ronda: ronda, Muertos: muertos})
+			if err != nil {
+				log.Fatalf("Error %s", err)
+			}
+			log.Printf("Numero de ronda actual: %d", response3.Ronda)
+			log.Printf("Fin de la Etapa 1")
+
 		}
 	}
-
-	cont = 0
 
 }
