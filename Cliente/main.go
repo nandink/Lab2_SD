@@ -116,6 +116,7 @@ func main() {
 		log.Printf("%d",ronda)
 		log.Printf("Contador: %d",cont)
 		if ronda < 5 {
+			log.Printf("Entre al primer if")
 			if cont == 0{
 				if jugadas2[0] >= 21{
 					jugadas[0] = 0
@@ -124,6 +125,7 @@ func main() {
 				jugadas[cont] = opcion
 				}
 			} else if cont < 16 {
+				log.Printf("Entre el segundo if")
 				if jugadas[cont] >= 21{
 					jugadas[cont] = 0
 				}else {
