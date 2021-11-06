@@ -135,3 +135,175 @@ var ClienteSv_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "pb.proto",
 }
+
+// LiderNNClient is the client API for LiderNN service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type LiderNNClient interface {
+	EnviarJugadas(ctx context.Context, in *Jugada, opts ...grpc.CallOption) (*Mensajito2, error)
+}
+
+type liderNNClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewLiderNNClient(cc grpc.ClientConnInterface) LiderNNClient {
+	return &liderNNClient{cc}
+}
+
+func (c *liderNNClient) EnviarJugadas(ctx context.Context, in *Jugada, opts ...grpc.CallOption) (*Mensajito2, error) {
+	out := new(Mensajito2)
+	err := c.cc.Invoke(ctx, "/pb.LiderNN/EnviarJugadas", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// LiderNNServer is the server API for LiderNN service.
+// All implementations must embed UnimplementedLiderNNServer
+// for forward compatibility
+type LiderNNServer interface {
+	EnviarJugadas(context.Context, *Jugada) (*Mensajito2, error)
+	mustEmbedUnimplementedLiderNNServer()
+}
+
+// UnimplementedLiderNNServer must be embedded to have forward compatible implementations.
+type UnimplementedLiderNNServer struct {
+}
+
+func (UnimplementedLiderNNServer) EnviarJugadas(context.Context, *Jugada) (*Mensajito2, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnviarJugadas not implemented")
+}
+func (UnimplementedLiderNNServer) mustEmbedUnimplementedLiderNNServer() {}
+
+// UnsafeLiderNNServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to LiderNNServer will
+// result in compilation errors.
+type UnsafeLiderNNServer interface {
+	mustEmbedUnimplementedLiderNNServer()
+}
+
+func RegisterLiderNNServer(s grpc.ServiceRegistrar, srv LiderNNServer) {
+	s.RegisterService(&LiderNN_ServiceDesc, srv)
+}
+
+func _LiderNN_EnviarJugadas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Jugada)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LiderNNServer).EnviarJugadas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.LiderNN/EnviarJugadas",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LiderNNServer).EnviarJugadas(ctx, req.(*Jugada))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// LiderNN_ServiceDesc is the grpc.ServiceDesc for LiderNN service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var LiderNN_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.LiderNN",
+	HandlerType: (*LiderNNServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "EnviarJugadas",
+			Handler:    _LiderNN_EnviarJugadas_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "pb.proto",
+}
+
+// LiderPozoClient is the client API for LiderPozo service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type LiderPozoClient interface {
+	PedirMonto(ctx context.Context, in *Mensajito2, opts ...grpc.CallOption) (*Monto, error)
+}
+
+type liderPozoClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewLiderPozoClient(cc grpc.ClientConnInterface) LiderPozoClient {
+	return &liderPozoClient{cc}
+}
+
+func (c *liderPozoClient) PedirMonto(ctx context.Context, in *Mensajito2, opts ...grpc.CallOption) (*Monto, error) {
+	out := new(Monto)
+	err := c.cc.Invoke(ctx, "/pb.LiderPozo/PedirMonto", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// LiderPozoServer is the server API for LiderPozo service.
+// All implementations must embed UnimplementedLiderPozoServer
+// for forward compatibility
+type LiderPozoServer interface {
+	PedirMonto(context.Context, *Mensajito2) (*Monto, error)
+	mustEmbedUnimplementedLiderPozoServer()
+}
+
+// UnimplementedLiderPozoServer must be embedded to have forward compatible implementations.
+type UnimplementedLiderPozoServer struct {
+}
+
+func (UnimplementedLiderPozoServer) PedirMonto(context.Context, *Mensajito2) (*Monto, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PedirMonto not implemented")
+}
+func (UnimplementedLiderPozoServer) mustEmbedUnimplementedLiderPozoServer() {}
+
+// UnsafeLiderPozoServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to LiderPozoServer will
+// result in compilation errors.
+type UnsafeLiderPozoServer interface {
+	mustEmbedUnimplementedLiderPozoServer()
+}
+
+func RegisterLiderPozoServer(s grpc.ServiceRegistrar, srv LiderPozoServer) {
+	s.RegisterService(&LiderPozo_ServiceDesc, srv)
+}
+
+func _LiderPozo_PedirMonto_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Mensajito2)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LiderPozoServer).PedirMonto(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.LiderPozo/PedirMonto",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LiderPozoServer).PedirMonto(ctx, req.(*Mensajito2))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// LiderPozo_ServiceDesc is the grpc.ServiceDesc for LiderPozo service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var LiderPozo_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.LiderPozo",
+	HandlerType: (*LiderPozoServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "PedirMonto",
+			Handler:    _LiderPozo_PedirMonto_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "pb.proto",
+}

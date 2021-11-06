@@ -23,9 +23,9 @@ service LiderNN { //servicios relacionados a Lider(cliente) - NameNode(servidor)
 }
 
 message Jugada {
-    [16]string jugador = 1
-    int32 ronda = 1
-    [16]string muertos = 1
+    repeated int32 jugador = 1;
+    int32 ronda = 2;
+    repeated int32 muertos = 3;
 }
 
 service LiderPozo { //servicios relacionados a Lider(cliente) - Pozo(servidor)
