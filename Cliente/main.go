@@ -24,7 +24,7 @@ func main() {
 	}
 	log.Printf("Respuesta del Lider: %s", response.Body)
 
-	var id int32 = 0
+	//var id int32 = 0
 	var lista_jug  = [15]int32{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
 	var cont int32 = 0
 	for {
