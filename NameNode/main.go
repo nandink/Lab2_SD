@@ -2,7 +2,7 @@ package main
 
 import (
 	pb "Lab2_SD/Pb"
-	"context"
+	//"context"
 	"google.golang.org/grpc"
 	"log"
 	"fmt"
