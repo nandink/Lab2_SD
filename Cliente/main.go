@@ -53,21 +53,21 @@ func main() {
 	cont = 0 //para recorrer a los jugadores
 
 	log.Printf("\n----Etapa 1: Luz Verde, Luz Roja ----")
-	log.Printf("\nEscoja un número del 1 al 10: ")
 	var opcion int32
 
 	for{ //for de rondas 1-5
 		if ronda < 5{
 			for { //for de jugadas 0-15
 					if cont == 0 {
-						if jugadas2[0] >= 21 {
+						if jugadas2[0] >= 21 || muertos[cont] == 1 {
 							jugadas[cont] = 0
 						} else{
+							log.Printf("\nEscoja un número del 1 al 10: ")
 							fmt.Scan(&opcion)
 							jugadas[cont] = opcion
 						}
 					} else if cont < 16 {
-						if jugadas2[cont] >= 21{
+						if jugadas2[cont] >= 21 || muertos[cont] == 1{
 							jugadas[cont] = 0
 						} else {
 							jugadas[cont] = rand.Int31n(10) +1
@@ -94,6 +94,12 @@ func main() {
 			jugadas2[cont] = jugadas2[cont] + jugadas[cont]
 		}
 
+		cont = 0
+		for range muertos{
+			muertos[cont] = response3[cont]
+			cont = cont + 1
+		}
+
 		log.Printf("Numero de ronda actual: %d", response3.Ronda)
 		log.Printf("\nEl lider escogió su número. Los jugadores muertos son: ")
 		
@@ -112,6 +118,9 @@ func main() {
 		log.Printf("\nFin de la ronda %d", ronda)
 		ronda = ronda + 1
 		cont = 0
+		if ronda == 6 {
+			break
+		}
 	}
 
 	cont = 0
