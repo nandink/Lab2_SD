@@ -7,8 +7,13 @@ option go_package = "Lab2_SD/Pb";
 
 service ClienteSv {
     rpc DimeHola(Mensaje) returns (Mensaje) {}
+    rpc MandarJugadores(Mensajito2) returns (Mensajito2) {}
 }
 
 message Mensaje { 
     string body = 1;
+}
+
+message Mensajito2 {
+    int32 id = 1;
 }
