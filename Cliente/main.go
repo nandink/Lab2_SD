@@ -86,6 +86,9 @@ func main() {
 			cont = cont + 1
 		}
 		response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: ronda, Muertos: muertos})
+		if err != nil {
+			log.Fatalf("Error %s", err)
+		}
 		cont = 0
 		for range jugadas{
 			jugadas2[cont] = jugadas2[cont] + jugadas[cont]
