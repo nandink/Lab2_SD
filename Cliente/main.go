@@ -71,6 +71,7 @@ func main() {
 				}else {
 				rand.Seed(time.Now().UnixNano())
 				jugadas[cont] = rand.Int31n(10) +1
+				log.Printf("\n Jugó: %d", jugadas[cont])
 				}
 			} else{
 				log.Printf("\nTodos los jugadores escogieron su número.")
