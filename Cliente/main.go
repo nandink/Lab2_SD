@@ -77,6 +77,7 @@ func main() {
 						break
 					}
 				cont = cont + 1
+			}
 		} else{
 			var cont2 int32 = 0
 			for range jugadas{
