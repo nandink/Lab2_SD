@@ -1,12 +1,13 @@
 package main
 
 import (
-	//pb "Lab2_SD/Pb"
-	//"context"
-	//"google.golang.org/grpc"
+	pb "Lab2_SD/Pb"
+	"context"
+	"google.golang.org/grpc"
 	"log"
 	"fmt"
   	"os"
+	"net"
 )
 
 var path = "/home/sofia/Escritorio/Tareas/SD_Final/Lab2_SD/NameNode/archivo.txt"
