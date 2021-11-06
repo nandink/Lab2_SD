@@ -68,7 +68,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error when calling SayHello: %s", err)
 	}
-	log.Printf("Respuesta del Lider: llego respuesta")
+	log.Printf("Respuesta del Lider: %d", response3.Ronda)
 	log.Printf("\nEl lider escogió su número. Los jugadores muertos son: ")
 
 }
