@@ -84,6 +84,12 @@ func main() {
 				}
 			}
 
+
+		response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: ronda, Muertos: muertos})
+		if err != nil {
+			log.Fatalf("Error %s", err)
+		}
+		
 		cont = 0
 		for range jugadas{
 			jugadas2[cont] = jugadas2[cont] + jugadas[cont]
@@ -94,6 +100,7 @@ func main() {
 			muertos[cont] = response3.Muertos[cont]
 			cont = cont + 1
 		}
+			
 
 			log.Printf("Numero de ronda actual: %d", response3.Ronda)
 			log.Printf("\nEl lider escogió su número. Los jugadores muertos son: ")
