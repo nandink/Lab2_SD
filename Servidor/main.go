@@ -39,6 +39,7 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 	var n_azar int32 = rand.Int31n(4) + 6
 	log.Printf("El Lider escogió: %d",n_azar)
 	var cont int32 = 0
+
 	for {
 		if in.Ronda < 5{
 			if cont < 16{
@@ -56,11 +57,13 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 					in.Muertos[cont] = 1
 					log.Printf("Jugador %d ha muerto", cont)
 				}
+			} else{
+				break
 			}
 		}
 		cont = cont + 1
 	} 
-		
+	ronda = ronda + 1
 	log.Printf("Devolviendo Jugadas")
 	return &pb.Jugada{Jugador: in.Jugador, Ronda: ronda, Muertos: in.Muertos}, nil
 	
