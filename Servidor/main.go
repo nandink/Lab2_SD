@@ -34,20 +34,32 @@ func (s *Server) MandarJugadores(ctx context.Context, in *pb.Mensajito2) (*pb.Me
 
 func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, error) {
 	log.Printf("Jugadas Recibidas")
+	rand.Seed(time.Now().UnixNano())
 	var n_azar int32 = rand.Int31n(4) + 6
 	log.Printf("El Lider escogió: %d",n_azar)
 	var cont int32 = 0
 	for {
-		if cont < 16{
-			if in.Jugador[cont] >= n_azar{
-				 in.Muertos[cont] = 1
-				 log.Printf("Jugador %d ha muerto", cont)
+		if in.Ronda < 5{
+			if cont < 16{
+				if in.Jugador[cont] >= n_azar{
+					 in.Muertos[cont] = 1
+					 log.Printf("Jugador %d ha muerto", cont)
+				}
+			}else{
+				break
 			}
-		}else{
-			break
+			
+		} else{
+			if cont < 16 {
+				if in.Jugador[cont] < 21 {
+					in.Muertos[cont] = 1
+					log.Printf("Jugador %d ha muerto", cont)
+				}
+			}
 		}
 		cont = cont + 1
-	}
+	} 
+		
 	log.Printf("Devolviendo Jugadas")
 	return &pb.Jugada{Jugador: in.Jugador, Ronda: ronda, Muertos: in.Muertos}, nil
 	
