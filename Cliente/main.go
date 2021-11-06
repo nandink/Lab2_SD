@@ -25,9 +25,9 @@ func main() {
 	}
 	log.Printf("Respuesta del Lider: %s", response.Body)
 
-	var id := 0
-	var lista_jug := [15]int{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
-	var cont := 0
+	var id int = 0
+	var lista_jug = [15]int{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+	var cont int = 0
 	for {
 		if cont < 16 {
 			response2, err := c.MandarJugadores(context.Background(), &pb.Mensajito2{Id: lista_jug[cont]})
