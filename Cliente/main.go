@@ -12,7 +12,7 @@ import (
 
 
 func main() {
-
+	rand.Seed(time.Now().UnixNano())
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.169:9000", grpc.WithInsecure())
 	if err != nil {
@@ -65,13 +65,11 @@ func main() {
 				fmt.Scan(&opcion)
 				jugadas[cont] = opcion
 				}
-			} else if cont < 16{
+			} else if cont < 16 {
 				if jugadas[cont] >= 21{
 					jugadas[cont] = 0
 				}else {
-				rand.Seed(time.Now().UnixNano())
-				jugadas[cont] = rand.Int31n(10) +1
-				log.Printf("\n Jugó: %d", jugadas[cont])
+					jugadas[cont] = rand.Int31n(10) +1
 				}
 			} else{
 				log.Printf("\nTodos los jugadores escogieron su número.")
