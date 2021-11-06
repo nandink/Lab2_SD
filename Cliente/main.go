@@ -56,7 +56,7 @@ func main() {
 			fmt.Scan(&opcion)
 			jugadas[cont] = opcion
 		} else if cont < 16{
-			jugadas[cont] = rand.Int32(10) +1
+			jugadas[cont] = rand.Int31n(10) +1
 		} else{
 			log.Printf("\nTodos los jugadores escogieron su número.")
 			break
@@ -64,7 +64,7 @@ func main() {
 		cont = cont + 1
 	}
 	//recibir jugada lider
-	response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugada, Ronda: 1, Muertos: muertos})
+	response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: 1, Muertos: muertos})
 	if err != nil {
 		log.Fatalf("Error when calling SayHello: %s", err)
 	}
