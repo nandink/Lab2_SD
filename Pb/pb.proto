@@ -8,6 +8,7 @@ option go_package = "Lab2_SD/Pb";
 service ClienteSv {  //Servicios relacionados a Jugador(cliente) - Lider(servidor)
     rpc DimeHola(Mensaje) returns (Mensaje) {}
     rpc MandarJugadores(Mensajito2) returns (Mensajito2) {}
+    rpc MandarJugada(Jugada) returns (Jugada) {} 
 }
 
 message Mensaje { 

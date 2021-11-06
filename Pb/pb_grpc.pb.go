@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type ClienteSvClient interface {
 	DimeHola(ctx context.Context, in *Mensaje, opts ...grpc.CallOption) (*Mensaje, error)
 	MandarJugadores(ctx context.Context, in *Mensajito2, opts ...grpc.CallOption) (*Mensajito2, error)
+	MandarJugada(ctx context.Context, in *Jugada, opts ...grpc.CallOption) (*Jugada, error)
 }
 
 type clienteSvClient struct {
@@ -48,12 +49,22 @@ func (c *clienteSvClient) MandarJugadores(ctx context.Context, in *Mensajito2, o
 	return out, nil
 }
 
+func (c *clienteSvClient) MandarJugada(ctx context.Context, in *Jugada, opts ...grpc.CallOption) (*Jugada, error) {
+	out := new(Jugada)
+	err := c.cc.Invoke(ctx, "/pb.ClienteSv/MandarJugada", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ClienteSvServer is the server API for ClienteSv service.
 // All implementations must embed UnimplementedClienteSvServer
 // for forward compatibility
 type ClienteSvServer interface {
 	DimeHola(context.Context, *Mensaje) (*Mensaje, error)
 	MandarJugadores(context.Context, *Mensajito2) (*Mensajito2, error)
+	MandarJugada(context.Context, *Jugada) (*Jugada, error)
 	mustEmbedUnimplementedClienteSvServer()
 }
 
@@ -66,6 +77,9 @@ func (UnimplementedClienteSvServer) DimeHola(context.Context, *Mensaje) (*Mensaj
 }
 func (UnimplementedClienteSvServer) MandarJugadores(context.Context, *Mensajito2) (*Mensajito2, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MandarJugadores not implemented")
+}
+func (UnimplementedClienteSvServer) MandarJugada(context.Context, *Jugada) (*Jugada, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MandarJugada not implemented")
 }
 func (UnimplementedClienteSvServer) mustEmbedUnimplementedClienteSvServer() {}
 
@@ -116,6 +130,24 @@ func _ClienteSv_MandarJugadores_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ClienteSv_MandarJugada_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Jugada)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClienteSvServer).MandarJugada(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.ClienteSv/MandarJugada",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClienteSvServer).MandarJugada(ctx, req.(*Jugada))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ClienteSv_ServiceDesc is the grpc.ServiceDesc for ClienteSv service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -130,6 +162,10 @@ var ClienteSv_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MandarJugadores",
 			Handler:    _ClienteSv_MandarJugadores_Handler,
+		},
+		{
+			MethodName: "MandarJugada",
+			Handler:    _ClienteSv_MandarJugada_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

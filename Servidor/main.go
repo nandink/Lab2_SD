@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"math/rand"
 )
 
 type Server struct {
@@ -19,6 +20,8 @@ type Jugada struct {
     muertos [16]string
 }
 
+var ronda int = 1
+
 func (s *Server) DimeHola(ctx context.Context, in *pb.Mensaje) (*pb.Mensaje, error) {
 	log.Printf("Receive message body from client: %s", in.Body)
 	return &pb.Mensaje{Body: "Estás inscrito en el juego!"}, nil
@@ -29,6 +32,26 @@ func (s *Server) MandarJugadores(ctx context.Context, in *pb.Mensajito2) (*pb.Me
 	return &pb.Mensajito2{Id: 1}, nil
 }
 
+func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, error) {
+	log.Printf("Jugadas Recibidas")
+	var n_azar int32 = random.Intn(4) + 6
+	log.Printf("El Lider escogió: %d",n_azar)
+	var cont int32 = 0
+	for {
+		if cont < 16{
+			if in.Jugador[cont] >= n_azar{
+				 in.Muertos[cont] = 1
+				 log.Printf("Jugador %d ha muerto", cont)
+			}
+		}else{
+			break
+		}
+	}
+	return &pb.Jugada{Jugador: in.Jugador, Ronda: ronda, Muertos: in.Muertos}, nil
+	
+}
+
+// funcion random rand.Intn(3)
 //funcion conectar_jugador
 
 func ListenNN(){
@@ -59,6 +82,8 @@ func ServerJugador(){
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
+
+
 }
 
 

@@ -1,12 +1,14 @@
 package main
 
 import (
-	pb "Lab2_SD/Pb"
+	//pb "Lab2_SD/Pb"
 	"context"
 	"google.golang.org/grpc"
 	"log"
 	"fmt"
+	"math/rand"
 )
+
 
 func main() {
 
@@ -26,8 +28,8 @@ func main() {
 	log.Printf("Respuesta del Lider: %s", response.Body)
 
 	//var id int32 = 0
-	var lista_jug  = [15]int32{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
-	var cont int32 = 0
+	var lista_jug  = [16]int32{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+	var cont int32 = 1
 	for {
 		if cont < 16 {
 			response2, err := c.MandarJugadores(context.Background(), &pb.Mensajito2{Id: lista_jug[cont]})
@@ -42,5 +44,33 @@ func main() {
 		cont = cont + 1
 	}
 
+	var muertos = [16]int32{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	var jugadas = [16]int32{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	cont = 0 //para recorrer a los jugadores
+	//random rand.Intn(3)
+	log.Printf("\n----Etapa 1: Luz Verde, Luz Roja ----")
+	log.Printf("\nEscoja un número del 1 al 10: ")
+	var opcion int
+	for {
+		if cont == 0{
+			fmt.Scan(&opcion)
+			jugadas[cont] = opcion
+		}
+		else if cont < 16{
+			jugadas[cont] = random.Intn(10) +1
+		}
+		else{
+			log.Printf("\nTodos los jugadores escogieron su número.")
+			break
+		}
+		cont = cont + 1
+	}
+	//recibir jugada lider
+	response, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugadores: jugada, Ronda: 1, Muertos: muertos})
+	if err != nil {
+		log.Fatalf("Error when calling SayHello: %s", err)
+	}
+	log.Printf("Respuesta del Lider: llego respuesta")
+	log.Printf("\nEl lider escogió su número. Los jugadores muertos son: ")
 
 }
