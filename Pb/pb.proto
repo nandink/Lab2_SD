@@ -5,7 +5,7 @@ package pb;
 option go_package = "Lab2_SD/Pb";
 
 
-service ClienteSv {
+service ClienteSv {  //Servicios relacionados a Jugador(cliente) - Lider(servidor)
     rpc DimeHola(Mensaje) returns (Mensaje) {}
     rpc MandarJugadores(Mensajito2) returns (Mensajito2) {}
 }
@@ -16,4 +16,22 @@ message Mensaje {
 
 message Mensajito2 {
     int32 id = 1;
+}
+
+service LiderNN { //servicios relacionados a Lider - NameNode
+    rpc EnviarJugadas(Jugada) returns (Mensajito2) {}
+}
+
+message Jugada {
+    [16]string jugador = 1
+    int32 ronda = 1
+    [16]string muertos = 1
+}
+
+service LiderPozo { //servicios relacionados a Lider(cliente) - Pozo(servidor)
+    rpc PedirMonto(Mensajito2) returns (Monto) {}
+}
+
+message Monto {
+    int64 monto = 1;
 }
