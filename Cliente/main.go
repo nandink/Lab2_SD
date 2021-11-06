@@ -96,7 +96,7 @@ func main() {
 
 		cont = 0
 		for range muertos{
-			muertos[cont] = response3[cont]
+			muertos[cont] = response3.Muertos[cont]
 			cont = cont + 1
 		}
 
