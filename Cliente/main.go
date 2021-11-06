@@ -57,6 +57,8 @@ func main() {
 	var opcion int32
 
 	for {
+		log.Printf("%d",ronda)
+		log.Printf("Contador: %d",cont)
 		if ronda < 5 {
 			if cont == 0{
 				if jugadas2[0] >= 21{
