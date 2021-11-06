@@ -78,12 +78,14 @@ func main() {
 			}
 			cont = cont + 1
 		} else {
-			response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas2, Ronda: ronda, Muertos: muertos})
+			var cont2 int32 = 0
+			for range jugadas{
+				jugadas[cont2] = jugadas2[cont2]
+			}
 		}
-		//recibir jugada lider
-		if ronda < 5{
-			response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: ronda, Muertos: muertos})
-		}
+		//recibir jugada lide
+		response3, err := c.MandarJugada(context.Background(), &pb.Jugada{Jugador: jugadas, Ronda: ronda, Muertos: muertos})
+		
 		cont = 0
 		for range muertos{
 			muertos[cont] = response3.Muertos[cont]
@@ -101,7 +103,7 @@ func main() {
 		cont = 0
 		for {
 			if cont < 16{
-				if muertos[cont] == 1{
+				if response3.Muertos[cont] == 1{
 					log.Printf(" %d ", cont)
 				}
 			}else{
