@@ -115,13 +115,5 @@ func main() {
 	}
 
 	cont = 0
-	for {
-		if cont < 16 {
-			if response3.Muertos[cont] == 0 {
-				log.Printf("Jugador %d vivo", response3.Muertos[cont])
-			}
-		}
-		cont = cont + 1
-	}
 
 }
