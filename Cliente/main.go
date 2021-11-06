@@ -101,7 +101,7 @@ func main() {
 		cont = 0
 		for {
 			if cont < 16{
-				if response3.Muertos[cont] = 1{
+				if muertos[cont] = 1{
 					log.Printf(" %d ", cont)
 				}
 			}else{
