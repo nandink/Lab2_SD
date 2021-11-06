@@ -47,6 +47,7 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 			break
 		}
 	}
+	log.Printf("Devolviendo Jugadas")
 	return &pb.Jugada{Jugador: in.Jugador, Ronda: ronda, Muertos: in.Muertos}, nil
 	
 }
