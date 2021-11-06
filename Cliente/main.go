@@ -55,11 +55,9 @@ func main() {
 		if cont == 0{
 			fmt.Scan(&opcion)
 			jugadas[cont] = opcion
-		}
-		else if cont < 16{
+		} else if cont < 16{
 			jugadas[cont] = random.Intn(10) +1
-		}
-		else{
+		} else{
 			log.Printf("\nTodos los jugadores escogieron su número.")
 			break
 		}
