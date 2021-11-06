@@ -13,6 +13,12 @@ type Server struct {
 	pb.UnimplementedClienteSvServer
 }
 
+type Jugada struct {
+	jugador [16]string
+    ronda int32
+    muertos [16]string
+}
+
 func (s *Server) DimeHola(ctx context.Context, in *pb.Mensaje) (*pb.Mensaje, error) {
 	log.Printf("Receive message body from client: %s", in.Body)
 	return &pb.Mensaje{Body: "Estás inscrito en el juego!"}, nil
@@ -24,6 +30,15 @@ func (s *Server) MandarJugadores(ctx context.Context, in *pb.Mensajito2) (*pb.Me
 }
 
 //funcion conectar_jugador
+
+func ListenNN(){
+	var conn *grpc.ClientConn
+	conn, err := grpc.Dial("10.6.40.171:9050", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %s", err)
+	}
+	defer conn.Close()
+}
 
 func ServerJugador(){
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 9000))
@@ -50,4 +65,7 @@ func ServerJugador(){
 func main() {
 	log.Printf("** Bienvenido al Juego del Calamar **")
 	ServerJugador()
+
+	log.Printf("Inicio Etapa 1: Luz Verde Luz Roja")
+
 }

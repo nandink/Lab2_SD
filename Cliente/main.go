@@ -35,8 +35,11 @@ func main() {
 			}
 			log.Printf("Respuesta del Lider: %s", response2.Id)
 		} else{
-			return
+			fmt.Printf("Inicio Etapa 1")
+			break
 		}
 		cont = cont + 1
 	}
+
+
 }

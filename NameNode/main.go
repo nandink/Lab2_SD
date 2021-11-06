@@ -11,7 +11,17 @@ import (
 
 var path = "/home/sofia/Escritorio/Tareas/SD_Final/Lab2_SD/NameNode/archivo.txt"
 
-func conexion(){
+type Server struct {
+	pb.UnimplementedClienteSvServer
+}
+
+type Jugada struct {
+	jugador [16]string
+    ronda int32
+    muertos [16]string
+}
+
+func conexionNameLider(){
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 9050)) //bajar el firewall para 9050
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -67,12 +77,6 @@ func crearArchivo() {
 	  return (err != nil)
 	}
 
-	func main(){
-		crearArchivo()
-		log.Printf("cree el archivo")
-		var linea string = "Escribe esto plis\n"
-		escribeArchivo(linea)
-		log.Printf("Escribi algo aaaaaaaaa")
-		linea = "ahora esto aaaaaaaaaa\n"
-		escribeArchivo(linea)
-	}
+func main(){
+	conexionNameLider()
+}

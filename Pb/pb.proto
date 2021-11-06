@@ -18,7 +18,7 @@ message Mensajito2 {
     int32 id = 1;
 }
 
-service LiderNN { //servicios relacionados a Lider - NameNode
+service LiderNN { //servicios relacionados a Lider(cliente) - NameNode(servidor)
     rpc EnviarJugadas(Jugada) returns (Mensajito2) {}
 }
 
