@@ -8,13 +8,15 @@ import (
 	"fmt"
   	"os"
 	"net"
+	"math/rand"
+	"time"
 )
 
 //var path = "/home/sofia/Escritorio/Tareas/SD_Final/Lab2_SD/NameNode/archivo.txt"
 var path = "/home/alumno/Lab2_SD/NameNode/Registro.txt"
 
 type Server struct {
-	pb.UnimplementedClienteSvServer
+	pb.UnimplementedLiderNNServer
 }
 
 type Jugada struct {
