@@ -9,14 +9,14 @@
 #### Indicaciones
 
 - El repositorio de todos los archivos en su última versión están en: https://github.com/nandink/Lab2_SD
-- Los programas están distribuidos de la siguiente manera:
+##### Los programas están distribuidos de la siguiente manera:
  - dist29: se ejecuta el Lider y DataNode0. clave = <hZK%8XqG-?Naj!>~>
  - dist30: se ejecutan los jugadores y DataNode1. clave = <M*jvU4W;$#DZs_5,>
  - dist31: se ejecuta el NameNode. clave = <A3h!)7czKgsu{?GC>
  - dist32: se ejecuta el Pozo y DataNode2. clave = <a7+VT<F^*8mLvjX]>
-- Orden de ejecución:
+##### Orden de ejecución:
  - En primer lugar, ejecutar el Lider (dentro de la carpeta Servicio) en la máquina dist29.
- - Luego, ejecutar el NameNode y el Pozo, cada uno en su respectiva máquina.
+ - Luego, ejecutar el NameNode, DataNode's y el Pozo, cada uno en su respectiva máquina. Para ejecutar los DataNode's, se necesita abrir dos terminales por cada máquina donde estos corren.
  - Por último, ejecutar los Jugadores (dentro de la carpeta Cliente).
 - Se encuentra implementado el primer juego (Red Light-Green Light). El programa termina cuando acaba dicho juego. 
 - Las máquinas se van a encontrar listas para su ejecución, con la configuración del archivo .proto listo.
