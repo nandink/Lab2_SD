@@ -1,18 +1,16 @@
 package main
 
 import (
-	"time"
 	pb "Lab2_SD/Pb"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	"math/rand"
 )
 
 type Server struct {
-	pb.UnimplementedClienteSvServer
+	pb.UnimplementedLiderPozoServer
 }
 
 var montoActual int64
