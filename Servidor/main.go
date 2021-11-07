@@ -66,6 +66,8 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 	ronda = ronda + 1
 	log.Printf("Devolviendo Jugadas")
 	
+
+	/*  ACA SE INTENTÓ IMPLEMENTAR 
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.171:9050", grpc.WithInsecure())
 	if err != nil {
@@ -76,10 +78,10 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 
 	response, err := c.EnviarJugadas(context.Background(), &pb.Jugada{Jugador: in.Jugador, Ronda: in.Ronda, Muertos: in.Muertos})
 	if err != nil {
-		log.Fatalf("Error when calling SayHello: %s", err)
+		log.Fatalf("Error en EnviaJugadas: %s", err)
 	}
 	log.Printf("Respuesta: %d", response.Id)
-
+	*/
 
 	var opcioncita int32
 	if ronda == 5{  //Termino de ronda, ver si el lider desea ver el pozo (acá también le enviaría los muertos al pozo para que calcule el nuevo monto, pero no lo hemos implementado)
@@ -90,6 +92,7 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 			PedirMonto()
 		} 
 	}
+	
 
 
 
