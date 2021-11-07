@@ -13,6 +13,7 @@ import (
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
+	//Comienza conexión con el Lider, le pide jugar
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.169:9000", grpc.WithInsecure())
 	if err != nil {
@@ -27,8 +28,11 @@ func main() {
 		log.Fatalf("Error when calling SayHello: %s", err)
 	}
 	log.Printf("Respuesta del Lider: %s", response.Body)
+	// Termina de pedirle al Lider jugar, recibe su respuesta
 
 	//var id int32 = 0
+
+	//-------------------- Comienzo a manejar la etapa 1 del juego -----------------------------------------
 	var lista_jug  = [16]int32{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
 	var cont int32 = 1
 	for {
@@ -55,31 +59,28 @@ func main() {
 	log.Printf("\n----Etapa 1: Luz Verde, Luz Roja ----")
 	var opcion int32
 
-	//FOR NUEVO AQUI ESTA SI QUE SI VAMOS DIOSITO
+	//for que maneja rondas, jugadas del jugador por pantalla y de los jugadores bot
 	for i:=0; i<=4; i++{
 		if i < 4 {
-			if muertos[0] == 0{ //si jugador por pantalla sigue vivo, sigue jugando las rondas
-				if jugadas2[0] >= 21 {
+			if muertos[0] == 0{ //si jugador por pantalla sigue vivo
+				if jugadas2[0] >= 21 {  //ya tiene 21 o más, no sigue jugando (se registra jugada como 0)
 					jugadas[0] = 0
-				}else{
+				}else{  //está vivo, no tiene 21 o más, así que sigue jugando
 					log.Printf("\nEscoja un número del 1 al 10: ")
 					fmt.Scan(&opcion)
 					jugadas[cont] = opcion	
 				}
-			}else{ //esta MUERTO :c
+			}else{ //jugador por pantalla está vivo
 				jugadas[0] = 0
 			}
-			for cont:=1;cont<16;cont++{
-				//si tiene mas de 21, sigue vivo, pero jugada = 0
-				//si tiene menos de 21, sigue jugando y tira jugada
-				//si esta muerto se le asigna jugada = 0
+			for cont:=1;cont<16;cont++{  // for para manejar las jugadas de los bots
 				if jugadas2[cont] < 21 {
-					if muertos[cont] == 1{ //tay dead
+					if muertos[cont] == 1{ //jugador bot esta muerto, se registra su jugada como 0
 						jugadas[cont] = 0
-					}else{
+					}else{  //jugador bot está vivo, se escoge un numero al azar entre 1 y 10.
 						jugadas[cont] = rand.Int31n(10) +1
 					}					
-				} else {
+				} else { //ya tiene 21 o más, siguiente jugada se registra como 0
 					jugadas[cont] = 0
 				}
 			}
@@ -122,6 +123,6 @@ func main() {
 
 		}
 	}
-	// ------------------- FIN ETAPA 1 ----------------------------------
+	// ------------------- FIN ETAPA 1 ---------------------------------------
 
 }
