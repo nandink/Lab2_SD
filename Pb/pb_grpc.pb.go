@@ -177,6 +177,7 @@ var ClienteSv_ServiceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LiderNNClient interface {
 	EnviarJugadas(ctx context.Context, in *Jugada, opts ...grpc.CallOption) (*Mensajito2, error)
+	EnviarADataNode(ctx context.Context, in *Jugada, opts ...grpc.CallOption) (*Mensajito2, error)
 }
 
 type liderNNClient struct {
@@ -196,11 +197,21 @@ func (c *liderNNClient) EnviarJugadas(ctx context.Context, in *Jugada, opts ...g
 	return out, nil
 }
 
+func (c *liderNNClient) EnviarADataNode(ctx context.Context, in *Jugada, opts ...grpc.CallOption) (*Mensajito2, error) {
+	out := new(Mensajito2)
+	err := c.cc.Invoke(ctx, "/pb.LiderNN/EnviarADataNode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LiderNNServer is the server API for LiderNN service.
 // All implementations must embed UnimplementedLiderNNServer
 // for forward compatibility
 type LiderNNServer interface {
 	EnviarJugadas(context.Context, *Jugada) (*Mensajito2, error)
+	EnviarADataNode(context.Context, *Jugada) (*Mensajito2, error)
 	mustEmbedUnimplementedLiderNNServer()
 }
 
@@ -210,6 +221,9 @@ type UnimplementedLiderNNServer struct {
 
 func (UnimplementedLiderNNServer) EnviarJugadas(context.Context, *Jugada) (*Mensajito2, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnviarJugadas not implemented")
+}
+func (UnimplementedLiderNNServer) EnviarADataNode(context.Context, *Jugada) (*Mensajito2, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnviarADataNode not implemented")
 }
 func (UnimplementedLiderNNServer) mustEmbedUnimplementedLiderNNServer() {}
 
@@ -242,6 +256,24 @@ func _LiderNN_EnviarJugadas_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LiderNN_EnviarADataNode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Jugada)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LiderNNServer).EnviarADataNode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.LiderNN/EnviarADataNode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LiderNNServer).EnviarADataNode(ctx, req.(*Jugada))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LiderNN_ServiceDesc is the grpc.ServiceDesc for LiderNN service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -252,6 +284,10 @@ var LiderNN_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EnviarJugadas",
 			Handler:    _LiderNN_EnviarJugadas_Handler,
+		},
+		{
+			MethodName: "EnviarADataNode",
+			Handler:    _LiderNN_EnviarADataNode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -21,6 +21,7 @@ message Mensajito2 {
 
 service LiderNN { //servicios relacionados a Lider(cliente) - NameNode(servidor)
     rpc EnviarJugadas(Jugada) returns (Mensajito2) {}
+    rpc EnviarADataNode(Jugada) returns (Mensajito2) {}
 }
 
 message Jugada {
@@ -31,6 +32,7 @@ message Jugada {
 
 service LiderPozo { //servicios relacionados a Lider(cliente) - Pozo(servidor)
     rpc PedirMonto(Mensajito2) returns (Monto) {}
+    //aca debe ir otra funcion que escriba un archivo con los muertos y el monto actual
 }
 
 message Monto {
