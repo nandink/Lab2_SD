@@ -88,9 +88,7 @@ func (s *Server) MandarJugada(ctx context.Context, in *pb.Jugada) (*pb.Jugada, e
 		fmt.Scan(&opcioncita)
 		if opcioncita == 1{
 			PedirMonto()
-		} else{
-			continue
-		}
+		} 
 	}
 
 
@@ -140,19 +138,18 @@ func PedirMonto() (error){
 	}
 	defer conn.Close()
 
-	c := pb.NewLidezPozoClient(conn)
+	c := pb.NewLiderPozoClient(conn)
 
 	response, err := c.PedirMonto(context.Background(), &pb.Mensajito2{Id: 1})
 	if err != nil {
 		log.Fatalf("Error when calling SayHello: %s", err)
 	}
 	log.Printf("Monto del premio actual: %s", response.Monto)
-
+	return nil
 }
 
 
-func main() {
-	var opcion int32 
+func main() { 
 	log.Printf("** Bienvenido al Juego del Calamar **")
 	ServerJugador()
 	log.Printf("Inicio Etapa 1: Luz Verde Luz Roja")
